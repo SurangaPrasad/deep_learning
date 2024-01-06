@@ -3,7 +3,7 @@ import gdown
 from pathlib import Path
 import requests
 import tarfile
-import zipfil
+import zipfile
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 print(f"The selected device is {device}")
