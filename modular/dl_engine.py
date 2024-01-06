@@ -69,6 +69,7 @@ def train(net, train_loader, valid_loader, loss_function, optimizer, epoches):
         train_val_results["val_loss"].append(loss_eval)
         train_val_results["val_acc"].append(acc_eval)
 
-        print('epoch: %d, lr: %f, accuracy: %f, loss: %f, valid accuracy: %f' % (epoch, optimizer.param_groups[0]['lr'], acc, loss.item(), acc_eval))
+        if epoch % 10 == 0: 
+            print('epoch: %d, lr: %f, accuracy: %f, loss: %f, valid accuracy: %f' % (epoch, optimizer.param_groups[0]['lr'], acc, loss.item(), acc_eval))
 
     return train_val_results
