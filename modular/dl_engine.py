@@ -1,3 +1,5 @@
+import torch
+
 # evaluation function
 def eval(net, data_loader):
     use_cuda = torch.cuda.is_available()
