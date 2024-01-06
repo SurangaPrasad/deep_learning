@@ -1,7 +1,7 @@
 import torch
 
 # evaluation function
-def eval(net, data_loader):
+def eval(net, data_loader, loss_function):
     use_cuda = torch.cuda.is_available()
     if use_cuda:
         net = net.cuda()
@@ -62,7 +62,7 @@ def train(net, train_loader, valid_loader, loss_function, optimizer, epoches):
 
 
         acc = correct / num_images
-        acc_eval,loss_eval = eval(net, valid_loader)
+        acc_eval,loss_eval = eval(net, valid_loader, loss_function)
 
         train_val_results["train_loss"].append(loss)
         train_val_results["train_acc"].append(acc)
