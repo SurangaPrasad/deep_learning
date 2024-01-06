@@ -145,11 +145,8 @@ def plot_loss_curves(results):
 from PIL import Image
 import random
 
-eurosat_dataset = torchvision.datasets.ImageFolder(image_path / "2750")
 
-
-
-def getEuroSatDataLoaders(starting_number):
+def getEuroSatDataLoaders(starting_number, eurosat_dataset):
 
   sample_list = eurosat_dataset.imgs
   unique_categories = set(label for _, label in sample_list)
