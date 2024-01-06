@@ -141,3 +141,92 @@ def plot_loss_curves(results):
     plt.title("Accuracy")
     plt.xlabel("Epochs")
     plt.legend()
+
+from PIL import Image
+import random
+
+eurosat_dataset = torchvision.datasets.ImageFolder(image_path / "2750")
+
+
+
+def getEuroSatDataLoaders(starting_number):
+
+  sample_list = eurosat_dataset.imgs
+  unique_categories = set(label for _, label in sample_list)
+  selected_categories = random.sample(unique_categories, k=5)
+  category_counters = {label: 0 for label in selected_categories}
+
+  # Initialize lists to store selected images and labels
+  selected_images = []
+  selected_labels = []
+
+
+  # Iterate through the sample list to select 20 images from each of the 5 categories
+  for image_path, label in sample_list:
+      if label in selected_categories and category_counters[label] < starting_number*20 + 20:
+          if category_counters[label] > starting_number*20: ### select another set of images and labels according to the starting_number
+            selected_images.append(image_path)
+            selected_labels.append(label)
+          category_counters[label] += 1
+  # Randomly choose 25 images for training (5 from each category)
+  training_images = []
+  training_labels = []
+  testing_images = []
+  testing_labels = []
+
+
+  category_counters = {label: 0 for label in selected_categories} ## reset all category counters
+
+  # print(f"Selected Categories {selected_categories} \n category_counters {category_counters}")
+
+  for image_path, label in sample_list:
+      if label in selected_categories and category_counters[label] < 20:
+          if category_counters[label] < 5:
+              # Add to training set
+              training_images.append(image_path)
+              training_labels.append(label)
+          else:
+              # Add to testing set
+              testing_images.append(image_path)
+              testing_labels.append(label)
+          category_counters[label] += 1
+
+  # Define transforms (you can customize these)
+  transform = transforms.Compose([
+      transforms.Resize((224, 224)),
+      transforms.ToTensor(),
+  ])
+  # Define a custom dataset class
+  class CustomDataset(Dataset):
+      def __init__(self, images, labels, transform=None):
+          self.images = images
+          self.labels = labels
+          self.transform = transform
+
+      def __len__(self):
+          return len(self.images)
+
+      def __getitem__(self, idx):
+          image_path, label = self.images[idx], self.labels[idx]
+          image = Image.open(image_path).convert("RGB")
+
+          if self.transform:
+              image = self.transform(image)
+
+          return image, label
+
+  # Create datasets and data loaders for training and testing
+  train_dataset = CustomDataset(training_images, training_labels, transform=transform)
+  test_dataset = CustomDataset(testing_images, testing_labels, transform=transform)
+
+  # Define batch size
+  batch_size = 32
+
+  # Create DataLoader instances
+  train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+  test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
+
+  return train_loader, test_loader
+
+
+
