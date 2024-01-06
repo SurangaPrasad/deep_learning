@@ -142,9 +142,11 @@ def plot_loss_curves(results):
     plt.xlabel("Epochs")
     plt.legend()
 
+import torch
+from torch.utils.data import DataLoader, Dataset
+from torchvision import transforms
 from PIL import Image
 import random
-
 
 def getEuroSatDataLoaders(starting_number, eurosat_dataset):
 
