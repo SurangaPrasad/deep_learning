@@ -5,6 +5,11 @@ import requests
 import tarfile
 import zipfile
 
+import torch
+import torchvision
+from torch import nn
+from torchvision import transforms
+
 device = "cuda" if torch.cuda.is_available() else "cpu"
 print(f"The selected device is {device}")
 
