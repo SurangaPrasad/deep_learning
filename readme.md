@@ -19,17 +19,10 @@ Before running the code, follow these steps:
 
 - `helper.py`: Contains helper functions used in the project.
 - `dl_engine.py`: Implements the deep learning engine for training and evaluation.
-- `main.ipynb`: Jupyter notebook containing the main code for the project.
+- `transfer_learning_v1_2.ipynb`: Jupyter notebook containing the main code for the project.
 
 ## Requirements
 
 - PyTorch
 - torchvision
 - GPU for accelerated training
-
-## Usage
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/your-username/your-repository.git
