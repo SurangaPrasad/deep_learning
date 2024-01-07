@@ -228,4 +228,42 @@ def getEuroSatDataLoaders(starting_number, eurosat_dataset):
   return train_loader, test_loader
 
 
+import matplotlib.pyplot as plt
+import numpy as np
+
+def plot_average(average_results):
+
+  # Convert PyTorch tensors to numpy arrays
+  train_loss = [tensor.item() for tensor in average_results['train_loss']]
+  train_acc = [tensor.item() * 100 for tensor in average_results['train_acc']]
+  val_loss = [tensor.item() for tensor in average_results['val_loss']]
+  val_acc = [tensor.item() * 100 for tensor in average_results['val_acc']]
+
+  # Plot the results
+  epochs = range(1, len(train_loss) + 1)
+
+  plt.figure(figsize=(12, 5))
+
+  # Plot loss
+  plt.subplot(1, 2, 1)
+  plt.plot(epochs, train_loss, label='Train')
+  plt.plot(epochs, val_loss, label='Validation')
+  plt.title('Loss')
+  plt.xlabel('Epochs')
+  plt.ylabel('Loss')
+  plt.legend()
+
+  # Plot accuracy
+  plt.subplot(1, 2, 2)
+  plt.plot(epochs, train_acc, label='Train')
+  plt.plot(epochs, val_acc, label='Validation')
+  plt.title('Accuracy')
+  plt.xlabel('Epochs')
+  plt.ylabel('Accuracy (%)')
+  plt.legend()
+
+  plt.tight_layout()
+  plt.show()
+
+
 
