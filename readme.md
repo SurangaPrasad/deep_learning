@@ -12,7 +12,7 @@ This code is written to pretrain and fine-tune three well-known deep learning mo
 Before running the code, follow these steps:
 
 1. Load `helper.py` and `dl_engine.py` from the git repository.
-2. Run the Jupyter notebook (`main.ipynb`) cell by cell.
+2. Run the Jupyter notebook (`transfer_learning_v1_2.ipynb`) cell by cell.
 3. Make sure to select a GPU before running the code for optimal performance.
 
 ## Code Structure
